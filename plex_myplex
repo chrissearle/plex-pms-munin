@@ -9,6 +9,7 @@ if [ "$1" = "config" ]; then
     echo 'graph_scale no'
     echo 'graph_category Plex'
     echo 'myplex.label Mapped'
+    echo 'myplex.draw AREA'
     exit 0
 fi
 
