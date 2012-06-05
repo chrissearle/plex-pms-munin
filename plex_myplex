@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Monitor myplex status
+
+if [ "$1" = "config" ]; then
+    echo 'graph_title MyPlex'
+    echo 'graph_args --base 1000 -l 0'
+    echo 'graph_vlabel Count'
+    echo 'graph_scale no'
+    echo 'graph_category Plex'
+    echo 'myplex.label Logged In'
+    exit 0
+fi
+
+VAL=0
+
+RESULT=`wget -q -O- http://localhost:32400/myplex/account | grep MyPlex`
+
+if [ "$RESULT" ]; then
+    MAPPED=`echo $RESULT | grep mapped`
+
+    if [ "$MAPPED" ]; then
+        VAL=1
+    fi
+fi
+
+echo "myplex.value $VAL"

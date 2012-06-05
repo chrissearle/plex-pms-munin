@@ -3,7 +3,7 @@
 # Monitor FD count - was written to test the runaway DLNA process count bug
 
 if [ "$1" = "config" ]; then
-    echo 'graph_title Plex FD count'
+    echo 'graph_title FD count'
     echo 'graph_args --base 1000 -l 0'
     echo 'graph_vlabel Count'
     echo 'graph_scale no'
