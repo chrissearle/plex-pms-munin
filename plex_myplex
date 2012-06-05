@@ -8,7 +8,7 @@ if [ "$1" = "config" ]; then
     echo 'graph_vlabel Count'
     echo 'graph_scale no'
     echo 'graph_category Plex'
-    echo 'myplex.label Logged In'
+    echo 'myplex.label Mapped'
     exit 0
 fi
 
