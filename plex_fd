@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Monitor FD count - was written to test the runaway DLNA process count bug
+
+if [ "$1" = "config" ]; then
+    echo 'graph_title Plex FD count'
+    echo 'graph_args --base 1000 -l 0'
+    echo 'graph_vlabel Count'
+    echo 'graph_scale no'
+    echo 'graph_category Plex'
+    echo 'fd.label FD Count'
+    echo 'socket.label Socket Count'
+    exit 0
+fi
+
+if [ -f /var/run/plexserver.pid ]; then
+    PID=`cat /var/run/plexserver.pid`
+    echo -n "fd.value "
+    ls -l /proc/$PID/fd | grep lrwx | wc -l
+    echo -n "socket.value "
+    ls -l /proc/$PID/fd | grep lrwx | grep socket | wc -l
+else
+    echo "fd.value 0"
+    echo "socket.value 0"
+fi
