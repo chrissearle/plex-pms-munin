@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Monitor hdparm status
+
+DEVICE=`basename $0 | sed 's/^plex_hdparm_//g'`
+
+if [ "$1" = "config" ]; then
+    echo "graph_title Plex hdparm status for /dev/$DEVICE"
+    echo 'graph_order unknown active standby sleeping'
+    echo 'graph_args --base 1000 -l 0'
+    echo 'graph_vlabel Status'
+    echo 'graph_scale no'
+    echo 'graph_category Plex'
+    echo 'unknown.label Mapped'
+    echo 'unknown.draw AREA'
+    echo 'active.label Mapped'
+    echo 'active.draw STACK'
+    echo 'standby.label Mapped'
+    echo 'standby.draw STACK'
+    echo 'sleeping.label Mapped'
+    echo 'sleeping.draw STACK'
+    exit 0
+fi
+
+STATUS=`hdparm -C /dev/$DEVICE | grep "drive state" | sed -e "s/.*drive state is: //"`
+
+UV=0
+AV=0
+STV=0
+SLV=0
+
+if [ $STATUS == "active/idle" ]; then
+  AV=1
+fi
+if [ $STATUS == "unknown" ]; then
+  UV=1
+fi
+if [ $STATUS == "standby" ]; then
+  STV=1
+fi
+if [ $STATUS == "sleeping" ]; then
+  SLV=1
+fi
+
+echo "unknown.value $UV"
+echo "active.value $AV"
+echo "standby.value $STV"
+echo "sleeping.value $SLV"
