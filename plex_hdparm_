@@ -11,13 +11,13 @@ if [ "$1" = "config" ]; then
     echo 'graph_vlabel Status'
     echo 'graph_scale no'
     echo 'graph_category Plex'
-    echo 'unknown.label Mapped'
+    echo 'unknown.label Unknown'
     echo 'unknown.draw AREA'
-    echo 'active.label Mapped'
+    echo 'active.label Active/Idle'
     echo 'active.draw STACK'
-    echo 'standby.label Mapped'
+    echo 'standby.label Standby'
     echo 'standby.draw STACK'
-    echo 'sleeping.label Mapped'
+    echo 'sleeping.label Sleeping'
     echo 'sleeping.draw STACK'
     exit 0
 fi
